@@ -20,7 +20,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.roles = require("./role.model.js")(sequelize, Sequelize);
-db.users = require("./user.model.js")(sequelize, Sequelize, db.roles);
+db.users = require("./user.model.js")(sequelize, Sequelize);
 db.flights = require("./flight.model.js")(sequelize, Sequelize);
 
 // Define FK (role_id) here with options
@@ -28,7 +28,7 @@ db.roles.hasMany(db.users, {
   foreignKey: {
     name: "role_id",
     allowNull: false,
-    defaultValue: 1,
+    // defaultValue: 1,
   },
 });
 // Reference FK
