@@ -19,21 +19,29 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.users = require("./user.model.js")(sequelize, Sequelize);
 db.roles = require("./role.model.js")(sequelize, Sequelize);
+db.users = require("./user.model.js")(sequelize, Sequelize, db.roles);
 db.flights = require("./flight.model.js")(sequelize, Sequelize);
 
-// db.tutorials.hasMany(db.comments, { as: "comments" });
-// db.comments.belongsTo(db.tutorials, {
-//   foreignKey: "tutorialId",
-//   as: "tutorial",
-// });
-
-db.roles.hasMany(db.users, { as: "users" });
-db.users.belongsTo(db.roles, {
-  foreignKey: "role_id",
+// Define FK (role_id) here with options
+db.roles.hasMany(db.users, {
+  foreignKey: {
+    name: "role_id",
+    allowNull: false,
+    defaultValue: 1,
+  },
 });
-db.users.hasMany(db.flights, { as: "flights" });
+// Reference FK
+db.users.belongsTo(db.roles, { foreignKey: "role_id" });
+
+// Define FK (user_email) here with options
+db.users.hasMany(db.flights, {
+  foreignKey: {
+    name: "user_email",
+    allowNull: false,
+    // defaultValue: 1,
+  },
+});
 db.flights.belongsTo(db.users, {
   foreignKey: "user_email",
 });

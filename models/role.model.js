@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Role = sequelize.define(
-    "Role",
+    "Role", // DB Table name = Role -> roles
     {
       // Model attributes are defined here
       role_id: {
@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       role_type: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
