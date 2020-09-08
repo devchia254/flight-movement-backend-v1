@@ -1,6 +1,7 @@
 const db = require("./models");
 const roleController = require("./controllers/role.controller");
 const userController = require("./controllers/user.controller");
+const flightController = require("./controllers/flight.controller");
 
 const run = async () => {
   const role1 = await roleController.createRole({
@@ -24,6 +25,16 @@ const run = async () => {
     firstName: "James",
     lastName: "Chia",
     password: "potato456",
+  });
+
+  const flight1 = await flightController.createFlight(user2.user_email, {
+    flightId: 1,
+    dateTime: "23/09/20 16:40",
+    flightNo: "AN234",
+    from: "KK",
+    to: "SDK",
+    acReg: "9M-SBO",
+    company: "Sazma",
   });
 };
 

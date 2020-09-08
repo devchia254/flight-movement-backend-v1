@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    to: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     ac_reg: {
       type: DataTypes.STRING,
       allowNull: false,
