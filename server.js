@@ -1,45 +1,58 @@
-const db = require("./models");
-const roleController = require("./controllers/role.controller");
-const userController = require("./controllers/user.controller");
-const flightController = require("./controllers/flight.controller");
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-const run = async () => {
-  const role1 = await roleController.createRole({
-    roleId: 1,
-    roleType: "Standard",
-  });
-  const role2 = await roleController.createRole({
-    roleId: 2,
-    roleType: "Admin",
-  });
+const app = express();
 
-  const user1 = await userController.createUser(role1.role_id, {
-    userEmail: "chiaStd@email.com",
-    firstName: "Alex",
-    lastName: "Chia",
-    password: "potato123",
-  });
-
-  const user2 = await userController.createUser(role2.role_id, {
-    userEmail: "chiaAdm@email.com",
-    firstName: "James",
-    lastName: "Chia",
-    password: "potato456",
-  });
-
-  const flight1 = await flightController.createFlight(user2.user_email, {
-    flightId: 1,
-    dateTime: "23/09/20 16:40",
-    flightNo: "AN234",
-    from: "KK",
-    to: "SDK",
-    acReg: "9M-SBO",
-    company: "Sazma",
-  });
+var corsOptions = {
+  origin: "http://localhost:8081", // This is to restrict which domains or wbesites can access this server
 };
 
-// db.sequelize.sync();
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const db = require("./models");
+const Role = db.roles;
+
+// In development, you may need to drop existing tables and re-sync database. So you can use force: true as code below.
+// force: true actually rewrites the records after every server restart
 db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-  run();
+  console.log("Drop and Resync Db");
+  initial();
+});
+// For production, just insert these rows manually and use sync() without parameters to avoid dropping data:
+// db.sequelize.sync();
+
+// 'initial' helps create 3 rows in the DB
+function initial() {
+  Role.create({
+    role_id: 1,
+    role_type: "user",
+  });
+
+  Role.create({
+    role_id: 2,
+    role_type: "admin",
+  });
+}
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to bezkoder application." });
+});
+
+// routes
+// require("./routes/auth.routes")(app);
+// require("./routes/user.routes")(app);
+
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+  // console.log("Console logging the DB: ", db.Sequelize.Op);
 });
