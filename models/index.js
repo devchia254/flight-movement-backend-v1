@@ -46,4 +46,7 @@ db.flights.belongsTo(db.users, {
   foreignKey: "user_email",
 });
 
+// Only used to check the existence of the Role in verifySignup.js
+db.ROLES = ["user", "admin"];
+
 module.exports = db;
