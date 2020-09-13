@@ -31,6 +31,7 @@ db.role.hasMany(db.user, {
     // defaultValue: 1,
   },
 });
+
 // Reference FK
 db.user.belongsTo(db.role, { foreignKey: "role_id" });
 
@@ -42,11 +43,7 @@ db.user.hasMany(db.flight, {
     // defaultValue: 1,
   },
 });
-db.flight.belongsTo(db.user, {
-  foreignKey: "user_email",
-});
 
-// Only used to check the existence of the Role in verifySignup.js
-// db.ROLES = ["user", "admin"];
+db.flight.belongsTo(db.user, { foreignKey: "user_email" });
 
 module.exports = db;
