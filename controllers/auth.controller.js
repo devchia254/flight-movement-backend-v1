@@ -9,7 +9,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 // CONTROLLER FOR TESTING AUTHENTICATION
 exports.signup = (req, res) => {
-  // Save User to Database
+  // Refers type of role to respective table id attribute
   const roleCheck = (role) => {
     switch (role) {
       case "admin":
@@ -40,7 +40,7 @@ exports.signin = (req, res) => {
   // MySQL: SELECT * FROM users WHERE username = 'req.body.username'
   User.findOne({
     where: {
-      username: req.body.username,
+      user_email: req.body.email,
     },
   })
     .then((user) => {
@@ -60,20 +60,23 @@ exports.signin = (req, res) => {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
+      var token = jwt.sign({ email: user.user_email }, config.secret, {
         expiresIn: 86400, // 24 hours
       });
 
-      var authorities = [];
-      user.getRoles().then((roles) => {
-        for (let i = 0; i < roles.length; i++) {
-          authorities.push("ROLE_" + roles[i].name.toUpperCase());
-        }
+      // user.getRole().then((role) => {
+      //   console.log("getRole(): ", role.role_type);
+      //   res.send({ message: "Testing something" });
+      // });
+
+      user.getRole().then((role) => {
+        const authority = "ROLE_" + role.role_type.toUpperCase();
+
         res.status(200).send({
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          roles: authorities,
+          email: user.user_email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          role: authority,
           accessToken: token,
         });
       });
