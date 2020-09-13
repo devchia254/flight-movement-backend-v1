@@ -1,5 +1,5 @@
 const db = require("../models");
-const User = db.users;
+const User = db.user;
 
 // Initial users to create before using the app
 exports.createUser = (roleId, user) => {

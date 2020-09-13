@@ -1,7 +1,7 @@
 const db = require("../models");
 const config = require("../config/auth.config");
-const User = db.users;
-const Role = db.ROLES;
+const User = db.user;
+const Role = db.role;
 
 const Op = db.Sequelize.Op; // Access SQL operators
 
@@ -10,39 +10,26 @@ var bcrypt = require("bcryptjs");
 // CONTROLLER FOR TESTING AUTHENTICATION
 exports.signup = (req, res) => {
   // Save User to Database
-  // MySQL: INSERT INTO users(username, email, password) VALUES ('req.body.username', 'req.body.email', 'bcrypt.hashSync(req.body.password, 8)')
+  const roleCheck = (role) => {
+    switch (role) {
+      case "admin":
+        return 2;
+      case "user":
+        return 1;
+      default:
+        return null;
+    }
+  };
+
   User.create({
     user_email: req.body.email,
     first_name: req.body.firstName,
     last_name: req.body.lastName,
     password: bcrypt.hashSync(req.body.password, 8),
-    role_id: req.body.roleId,
+    role_id: roleCheck(req.body.role),
   })
     .then((user) => {
-      if (req.body.roles) {
-        // If req.body.roles = 'admin'
-        // MySQL: SELECT * FROM roles WHERE name = 'admin' OR name = .....
-        Role.findAll({
-          where: {
-            name: {
-              // Op.or is OR in MySQL
-              [Op.or]: req.body.roles,
-            },
-          },
-        }).then((roles) => {
-          console.log("Logging roles: ", roles);
-          // This actually UPDATES the junction table -  user_roles (Many-to-many relationship)
-          // When the user is created, the roleId is updated at the junction table by referencing the roles table
-          user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
-          });
-        });
-      } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
-          res.send({ message: "User was registered successfully!" });
-        });
-      }
+      res.send({ message: `${req.body.role} was registered successfully!` });
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });

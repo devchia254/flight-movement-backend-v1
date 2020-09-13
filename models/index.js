@@ -19,12 +19,12 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.roles = require("./role.model.js")(sequelize, Sequelize);
-db.users = require("./user.model.js")(sequelize, Sequelize);
-db.flights = require("./flight.model.js")(sequelize, Sequelize);
+db.role = require("./role.model.js")(sequelize, Sequelize);
+db.user = require("./user.model.js")(sequelize, Sequelize);
+db.flight = require("./flight.model.js")(sequelize, Sequelize);
 
 // Define FK (role_id) here with options
-db.roles.hasMany(db.users, {
+db.role.hasMany(db.user, {
   foreignKey: {
     name: "role_id",
     allowNull: false,
@@ -32,21 +32,21 @@ db.roles.hasMany(db.users, {
   },
 });
 // Reference FK
-db.users.belongsTo(db.roles, { foreignKey: "role_id" });
+db.user.belongsTo(db.role, { foreignKey: "role_id" });
 
 // Define FK (user_email) here with options
-db.users.hasMany(db.flights, {
+db.user.hasMany(db.flight, {
   foreignKey: {
     name: "user_email",
     allowNull: false,
     // defaultValue: 1,
   },
 });
-db.flights.belongsTo(db.users, {
+db.flight.belongsTo(db.user, {
   foreignKey: "user_email",
 });
 
 // Only used to check the existence of the Role in verifySignup.js
-db.ROLES = ["user", "admin"];
+// db.ROLES = ["user", "admin"];
 
 module.exports = db;

@@ -1,5 +1,5 @@
 const db = require("../models");
-const Flight = db.flights;
+const Flight = db.flight;
 
 exports.createFlight = (userEmail, flight) => {
   return Flight.create({
