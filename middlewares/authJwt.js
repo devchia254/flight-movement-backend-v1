@@ -20,7 +20,8 @@ verifyToken = (req, res, next) => {
         message: "Unauthorized!",
       });
     }
-    // console.log(decoded);
+    // decoded contains iat, exp and an object(used to sign jwt)
+    // this created an attribute "email" and assigned "decoded.email" as its value, in the 'Request' object
     req.email = decoded.email;
     next();
   });
