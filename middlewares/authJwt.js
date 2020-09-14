@@ -27,6 +27,26 @@ verifyToken = (req, res, next) => {
   });
 };
 
+isAnyUser = (req, res, next) => {
+  User.findByPk(req.email)
+    .then((user) => {
+      user.getRole().then((role) => {
+        if (role.role_type === "admin" || "user") {
+          next();
+          return;
+        }
+
+        res.status(403).send({
+          message: "Require User or Admin Role!",
+        });
+        return;
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
 isAdmin = (req, res, next) => {
   User.findByPk(req.email)
     .then((user) => {
@@ -49,6 +69,7 @@ isAdmin = (req, res, next) => {
 
 const authJwt = {
   verifyToken: verifyToken,
+  isAnyUser: isAnyUser,
   isAdmin: isAdmin,
 };
 module.exports = authJwt;
