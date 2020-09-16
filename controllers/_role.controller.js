@@ -1,5 +1,5 @@
 const db = require("../models");
-const Role = db.roles;
+const Role = db.role;
 
 // Initial roles to create before using the app
 exports.createRole = (role) => {
