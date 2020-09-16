@@ -25,7 +25,7 @@ const User = db.user;
 // force: true actually rewrites the records after every server restart
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and Resync Db");
-  initial.administrator(Role, User);
+  initial.admin(Role, User);
 });
 // For production, just insert these rows manually and use sync() without parameters to avoid dropping data:
 // db.sequelize.sync();
