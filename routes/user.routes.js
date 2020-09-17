@@ -11,17 +11,17 @@ module.exports = function (app) {
     next();
   });
 
-  app.get(
-    "/api/user/flights",
-    [authJwt.verifyToken, authJwt.isAnyUser],
-    controller.userBoard
-  );
-
-  // app.post(
-  //   "/api/user/flight/create",
+  // app.get(
+  //   "/api/user/flights",
   //   [authJwt.verifyToken, authJwt.isAnyUser],
   //   controller.userBoard
   // );
+
+  app.post(
+    "/api/user/flight/create",
+    [authJwt.verifyToken, authJwt.isAnyUser],
+    controller.createFlight
+  );
 
   // app.put(
   //   "/api/user/flight/edit",
