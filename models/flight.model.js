@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const Flight = sequelize.define("Flight", {
     // Model attributes are defined here
     flight_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false,
     },

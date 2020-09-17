@@ -18,14 +18,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./models");
 const initial = require("./config/initial.config");
+
 const Role = db.role;
 const User = db.user;
+const Flight = db.flight;
+
+const data = require("./test/makeFlights");
 
 // In development, you may need to drop existing tables and re-sync database. So you can use force: true as code below.
 // force: true actually rewrites the records after every server restart
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and Resync Db");
   initial.admin(Role, User);
+  data.makeFlights(Flight);
 });
 // For production, just insert these rows manually and use sync() without parameters to avoid dropping data:
 // db.sequelize.sync();
