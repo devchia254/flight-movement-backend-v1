@@ -5,7 +5,20 @@ const Flight = db.flight;
 
 const Op = db.Sequelize.Op; // Access SQL operators
 
-exports.getflights = (req, res) => {};
+exports.getFlights = (req, res) => {
+  Flight.findAll()
+    .then((flight) => {
+      res.send({
+        message: `All flights retrieved!`,
+        data: flight,
+      });
+      // console.log("List of flights:", JSON.stringify(flight, null, 2));
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({ message: err.message });
+    });
+};
 
 exports.createFlight = (req, res) => {
   Flight.create({

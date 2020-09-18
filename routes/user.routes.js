@@ -11,11 +11,11 @@ module.exports = function (app) {
     next();
   });
 
-  // app.get(
-  //   "/api/user/flights",
-  //   [authJwt.verifyToken, authJwt.isAnyUser],
-  //   controller.userBoard
-  // );
+  app.get(
+    "/api/user/flights",
+    [authJwt.verifyToken, authJwt.isAnyUser],
+    controller.getFlights
+  );
 
   app.post(
     "/api/user/flight/create",
