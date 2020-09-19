@@ -23,11 +23,11 @@ module.exports = function (app) {
     controller.createFlight
   );
 
-  // app.put(
-  //   "/api/user/flight/edit",
-  //   [authJwt.verifyToken, authJwt.isAnyUser],
-  //   controller.userBoard
-  // );
+  app.put(
+    "/api/user/flight/edit/:id",
+    [authJwt.verifyToken, authJwt.isAnyUser],
+    controller.editFlight
+  );
 
   // app.delete(
   //   "/api/user/flight/delete",

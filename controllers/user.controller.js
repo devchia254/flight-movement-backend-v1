@@ -42,7 +42,41 @@ exports.createFlight = (req, res) => {
     });
 };
 
-exports.editFlight = (req, res) => {};
+exports.editFlight = (req, res) => {
+  const paramsId = req.params.id;
+
+  Flight.update(
+    {
+      date_time: req.body.dateTime,
+      flight_no: req.body.flightNo,
+      from: req.body.from,
+      to: req.body.to,
+      ac_reg: req.body.acReg,
+      company: req.body.company,
+      updated_by: req.body.email,
+    },
+    {
+      where: { flight_id: paramsId },
+    }
+  )
+    .then((num) => {
+      // Indicates 1 row was affected in MySQL db
+      if (num == 1) {
+        res.send({
+          message: "Flight was updated successfully.",
+        });
+      } else {
+        res.send({
+          message: `Cannot update Tutorial with id=${paramsId}. Maybe Flight was not found or req.body is empty!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating Tutorial with id=" + paramsId,
+      });
+    });
+};
 
 exports.deleteFlight = (req, res) => {};
 

@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    updated_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   });
   return Flight;
 };
