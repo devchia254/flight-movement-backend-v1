@@ -11,41 +11,28 @@ module.exports = function (app) {
     next();
   });
 
+  // Get all flights
   app.get(
     "/api/user/flights",
     [authJwt.verifyToken, authJwt.isAnyUser],
     controller.getFlights
   );
-
+  // Create one flight
   app.post(
     "/api/user/flight/create",
     [authJwt.verifyToken, authJwt.isAnyUser],
     controller.createFlight
   );
-
+  // Update one flight
   app.put(
     "/api/user/flight/edit/:id",
     [authJwt.verifyToken, authJwt.isAnyUser],
     controller.editFlight
   );
-
-  // app.delete(
-  //   "/api/user/flight/delete",
-  //   [authJwt.verifyToken, authJwt.isAnyUser],
-  //   controller.userBoard
-  // );
+  // Delete one flight
+  app.delete(
+    "/api/user/flight/delete/:id",
+    [authJwt.verifyToken, authJwt.isAnyUser],
+    controller.deleteFlight
+  );
 };
-
-// app.get("/api/test/all", controller.allAccess);
-
-// app.get(
-//   "/api/test/user",
-//   [authJwt.verifyToken, authJwt.isAnyUser],
-//   controller.userBoard
-// );
-
-// app.get(
-//   "/api/test/admin",
-//   [authJwt.verifyToken, authJwt.isAdmin],
-//   controller.adminBoard
-// );

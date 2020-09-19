@@ -12,11 +12,12 @@ module.exports = function (app) {
     next();
   });
 
+  // Sign up user - ADMIN privilege
   app.post(
     "/api/auth/signup",
     [authJwt.verifyToken, authJwt.isAdmin, verifySignUp.checkDuplicateEmail],
     controller.signup
   );
-
+  // Sign in user
   app.post("/api/auth/signin", controller.signin);
 };

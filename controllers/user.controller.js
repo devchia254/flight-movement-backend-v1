@@ -78,7 +78,30 @@ exports.editFlight = (req, res) => {
     });
 };
 
-exports.deleteFlight = (req, res) => {};
+exports.deleteFlight = (req, res) => {
+  const paramsId = req.params.id;
+
+  Flight.destroy({
+    where: { flight_id: paramsId },
+  })
+    .then((num) => {
+      // Indicates 1 row was affected in MySQL db
+      if (num == 1) {
+        res.send({
+          message: "Flight was deleted successfully.",
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Flight with id=${paramsId}. Maybe Flight was not found or req.body is empty!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating Flight with id=" + paramsId,
+      });
+    });
+};
 
 // exports.allAccess = (req, res) => {
 //   res.status(200).send("Public Content.");
