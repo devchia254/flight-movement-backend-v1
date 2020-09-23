@@ -13,7 +13,11 @@ exports.makeFlights = (Flight) => {
       ac_reg: flight.acReg,
       company: flight.company,
       user_email: flight.email,
-    });
+    })
+      // .then((flight) => {
+      //   console.log(flight.dataValues);
+      // })
+      .catch((err) => console.log("Flight create error: ", err));
   });
 
   return newArr;
