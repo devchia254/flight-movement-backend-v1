@@ -1,7 +1,7 @@
 const data = require("./generateData");
 
 exports.makeFlights = (Flight) => {
-  const arr = [...data(10)]; // Change number for number of records
+  const arr = [...data(20)]; // Change number for number of records
 
   const newArr = arr.map((flight) => {
     Flight.create({
@@ -17,7 +17,7 @@ exports.makeFlights = (Flight) => {
       // .then((flight) => {
       //   console.log(flight.dataValues);
       // })
-      .catch((err) => console.log("Flight create error: ", err));
+      .catch((err) => console.log("Flight create error: ", err.parent));
   });
 
   return newArr;
