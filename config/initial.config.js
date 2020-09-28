@@ -18,4 +18,12 @@ exports.admin = (Role, User) => {
     password: bcrypt.hashSync("admin", 8),
     role_id: 2,
   });
+
+  User.create({
+    user_email: "user@fma.com",
+    first_name: "Ben",
+    last_name: "Beckmen",
+    password: bcrypt.hashSync("admin", 8),
+    role_id: 1,
+  });
 };
