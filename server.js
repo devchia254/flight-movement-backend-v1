@@ -22,7 +22,12 @@ const db = require("./models");
 // force: true actually rewrites the records after every server restart
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and Resync Db");
-  [initial.admin(Role, User), data.makeFlights(Flight)]; // Executes in sequence
+
+  initial.admin(Role, User); // Sets initial roles and users
+
+  setTimeout(() => {
+    data.makeFlights(Flight);
+  }, 1500); // Executes after 1.5s
 });
 // For production, just insert these rows manually and use sync() without parameters to avoid dropping data:
 // db.sequelize.sync();
