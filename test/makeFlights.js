@@ -5,7 +5,7 @@ exports.makeFlights = (Flight) => {
 
   const newArr = arr.map((flight) => {
     Flight.create({
-      flight_id: flight.id,
+      // flight_id: flight.id,
       flight_no: flight.flightNo,
       date_time: flight.dateTime, // Strict mode: ISO 8601 (Before conversion to readable format)
       from: flight.from,

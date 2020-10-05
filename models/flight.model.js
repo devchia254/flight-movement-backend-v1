@@ -1,8 +1,11 @@
+const { Sequelize } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   const Flight = sequelize.define("Flight", {
     // Model attributes are defined here
     flight_id: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
+      defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
