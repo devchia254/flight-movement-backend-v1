@@ -21,23 +21,26 @@ exports.getFlights = (req, res) => {
 };
 
 exports.createFlight = (req, res) => {
+  console.log("createFlight: ", req.body);
+
   Flight.create({
-    flight_id: req.body.flightId,
-    date_time: req.body.dateTime,
+    // flight_id: req.body.flightId,
     flight_no: req.body.flightNo,
+    ac_reg: req.body.acReg,
+    date_time: req.body.dateTime,
     from: req.body.from,
     to: req.body.to,
-    ac_reg: req.body.acReg,
     company: req.body.company,
     user_email: req.body.email,
   })
     .then((flight) => {
+      // Use sequelize to get flight ID
       res.send({
-        message: `Flight_id: ${req.body.flightId} was created successfully by ${req.body.email}`,
+        message: `Flight was created successfully by ${req.body.email}`,
       });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       res.status(500).send({ message: err.message });
     });
 };
