@@ -19,19 +19,19 @@ module.exports = function (app) {
   );
   // Create one flight
   app.post(
-    "/api/user/flight/create",
+    "/api/user/flights",
     [authJwt.verifyToken, authJwt.isAnyUser],
     controller.createFlight
   );
   // Update one flight
   app.put(
-    "/api/user/flight/edit/:id",
+    "/api/user/flights/:id",
     [authJwt.verifyToken, authJwt.isAnyUser],
     controller.editFlight
   );
   // Delete one flight
   app.delete(
-    "/api/user/flight/delete/:id",
+    "/api/user/flights/:id",
     [authJwt.verifyToken, authJwt.isAnyUser],
     controller.deleteFlight
   );
