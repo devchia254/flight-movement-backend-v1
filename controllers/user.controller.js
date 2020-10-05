@@ -10,7 +10,7 @@ exports.getFlights = (req, res) => {
     .then((flight) => {
       res.send({
         message: `All flights retrieved!`,
-        data: flight,
+        flightData: flight,
       });
       // console.log("List of flights:", JSON.stringify(flight, null, 2));
     })
