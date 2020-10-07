@@ -4,6 +4,7 @@ module.exports = {
   PASSWORD: "password",
   DB: "fma_v1",
   dialect: "mysql",
+  timezone: "+08:00",
   pool: {
     max: 10,
     min: 0,

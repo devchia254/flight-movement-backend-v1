@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     date_time: {
-      type: DataTypes.STRING, // The dateTime value from moment.js is a string
+      type: DataTypes.DATE, // The dateTime value from moment.js is a string
       allowNull: false,
     },
     flight_no: {
