@@ -4,7 +4,7 @@ module.exports = {
   PASSWORD: "password",
   DB: "fma_v1",
   dialect: "mysql",
-  timezone: "+08:00",
+  timezone: "+08:00", // Malaysian Time
   pool: {
     max: 10,
     min: 0,
