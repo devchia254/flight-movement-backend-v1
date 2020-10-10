@@ -10,6 +10,9 @@ var bcrypt = require("bcryptjs");
 // CONTROLLER FOR TESTING AUTHENTICATION
 exports.signup = (req, res) => {
   // Refers type of role to respective table id attribute
+
+  console.log("Signgup Route: ", req.body);
+
   const roleCheck = (role) => {
     switch (role) {
       case "admin":
@@ -29,7 +32,10 @@ exports.signup = (req, res) => {
     role_id: roleCheck(req.body.role),
   })
     .then((user) => {
-      res.send({ message: `${req.body.role} was registered successfully!` });
+      const role = req.body.role;
+      const capitaliseRole = role.charAt(0).toUpperCase() + role.slice(1);
+
+      res.send({ message: `${capitaliseRole} was registered successfully!` });
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
@@ -45,7 +51,7 @@ exports.signin = (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(404).send({ message: "User email was not found" });
       }
       // passwordIsValid returns either true or false
       var passwordIsValid = bcrypt.compareSync(
@@ -56,12 +62,13 @@ exports.signin = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-          message: "Invalid Password!",
+          message: "Invalid Password! Please try again",
         });
       }
 
       var token = jwt.sign({ email: user.user_email }, config.secret, {
         expiresIn: 86400, // 24 hours
+        // expiresIn: 900, // 15 mins
       });
 
       // user.getRole().then((role) => {

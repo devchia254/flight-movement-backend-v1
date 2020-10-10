@@ -1,13 +1,16 @@
+const { Sequelize } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   const Flight = sequelize.define("Flight", {
     // Model attributes are defined here
     flight_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
     date_time: {
-      type: DataTypes.STRING, // The dateTime value from moment.js is a string
+      type: DataTypes.DATE, // The dateTime value from moment.js is a string
       allowNull: false,
     },
     flight_no: {
@@ -29,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     company: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    updated_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   });
   return Flight;

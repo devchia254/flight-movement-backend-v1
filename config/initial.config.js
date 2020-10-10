@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 // Starting data when project is running
-exports.administrator = (Role, User) => {
+exports.admin = (Role, User) => {
   Role.create({
     role_id: 1,
     role_type: "user",
@@ -17,5 +17,13 @@ exports.administrator = (Role, User) => {
     last_name: "Chia",
     password: bcrypt.hashSync("admin", 8),
     role_id: 2,
+  });
+
+  User.create({
+    user_email: "user@fma.com",
+    first_name: "Ben",
+    last_name: "Beckmen",
+    password: bcrypt.hashSync("user", 8),
+    role_id: 1,
   });
 };
