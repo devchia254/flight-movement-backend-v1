@@ -31,14 +31,9 @@ exports.createFlight = (req, res) => {
     from: req.body.from,
     to: req.body.to,
     company: req.body.company,
-    user_email: req.body.email,
+    user_email: req.body.userEmail,
   })
     .then((flight) => {
-      // flight.getUser().then((user) => {
-      //   console.log("getUser(): ", user);
-      //   res.send({ message: "Testing getUser()" });
-      // });
-
       res.send({
         message: `Flight was successfully created`,
         flightId: `${flight.dataValues.flight_id}`,
@@ -54,6 +49,9 @@ exports.createFlight = (req, res) => {
 exports.editFlight = (req, res) => {
   const paramsId = req.params.id;
 
+  console.log("req.params: ", req.params);
+  console.log("req.body: ", req.body);
+
   Flight.update(
     {
       date_time: req.body.dateTime,
@@ -62,7 +60,7 @@ exports.editFlight = (req, res) => {
       to: req.body.to,
       ac_reg: req.body.acReg,
       company: req.body.company,
-      updated_by: req.body.email,
+      updated_by: req.body.updatedBy,
     },
     {
       where: { flight_id: paramsId },

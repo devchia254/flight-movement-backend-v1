@@ -68,6 +68,7 @@ exports.signin = (req, res) => {
 
       var token = jwt.sign({ email: user.user_email }, config.secret, {
         expiresIn: 86400, // 24 hours
+        // expiresIn: 900, // 15 mins
       });
 
       // user.getRole().then((role) => {
