@@ -32,7 +32,7 @@ const generateFlight = () => {
       .toUpperCase(),
     acReg:
       acRegChance > 0.66 ? "9M-SBO" : acRegChance > 0.33 ? "9M-SBA" : "9M-SBM",
-    dateTime: randomDate(new Date(2020, 0, 1), new Date()),
+    dateTime: randomDate(new Date(2020, 9, 1), new Date(2020, 9, 20)),
     from:
       fromChance > 0.66
         ? "SAA KK Base"
