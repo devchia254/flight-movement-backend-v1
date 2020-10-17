@@ -22,12 +22,14 @@ exports.createFlight = (req, res) => {
   Flight.create({
     // flight_id: req.body.flightId,
     flight_no: req.body.flightNo,
-    ac_reg: req.body.acReg,
-    date_time: req.body.dateTime,
-    from: req.body.from,
-    to: req.body.to,
     company: req.body.company,
-    user_email: req.body.userEmail,
+    ac_reg: req.body.acReg,
+    destination: req.body.destination,
+    check_in: req.body.checkIn,
+    etd: req.body.etd,
+    eta: req.body.eta,
+    status: req.body.status,
+    user_email: req.body.email,
   })
     .then((flight) => {
       res.send({
