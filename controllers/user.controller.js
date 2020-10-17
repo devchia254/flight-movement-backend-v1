@@ -1,9 +1,5 @@
 const db = require("../models");
-const config = require("../config/auth.config");
-const User = db.user;
 const Flight = db.flight;
-
-const Op = db.Sequelize.Op; // Access SQL operators
 
 exports.getFlights = (req, res) => {
   Flight.findAll()

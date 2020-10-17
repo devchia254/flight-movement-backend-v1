@@ -7,11 +7,13 @@ exports.makeFlights = (Flight) => {
     Flight.create({
       // flight_id: flight.id,
       flight_no: flight.flightNo,
-      date_time: flight.dateTime, // Strict mode: ISO 8601 (Before conversion to readable format)
-      from: flight.from,
-      to: flight.to,
-      ac_reg: flight.acReg,
       company: flight.company,
+      ac_reg: flight.acReg,
+      destination: flight.destination,
+      check_in: flight.checkIn,
+      etd: flight.etd,
+      eta: flight.eta,
+      status: flight.status,
       user_email: flight.email,
     })
       // .then((flight) => {

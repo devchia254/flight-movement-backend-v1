@@ -25,28 +25,36 @@ const generateFlight = () => {
     return moment(genDate).format(); // String format: ISO 8601
   }
 
+  // Gets random date between +-3 days of today
+  const sixDayCoverage = randomDate(
+    moment().subtract(3, "d")._d,
+    moment().add(3, "d")._d
+  );
+
   return {
-    id: namor.generate({ words: 0, numbers: 0, saltLength: 10 }),
+    // id: namor.generate({ words: 0, numbers: 0, saltLength: 10 }),
     flightNo: namor
       .generate({ words: 0, numbers: 0, saltLength: 5 })
       .toUpperCase(),
+    company: coChance > 0.66 ? "Sazma" : coChance > 0.33 ? "Weststar" : "SAA",
     acReg:
       acRegChance > 0.66 ? "9M-SBO" : acRegChance > 0.33 ? "9M-SBA" : "9M-SBM",
-    // dateTime: randomDate(new Date(2020, 9, 10), new Date(2020, 9, 20)),
-    dateTime: randomDate(moment().subtract(3, "d")._d, moment().add(3, "d")._d), // Gets random date between +-3 days of today
-    from:
+    destination:
       fromChance > 0.66
         ? "SAA KK Base"
         : fromChance > 0.33
         ? "Terminal 2"
         : "Tg Aru Beach",
-    to:
-      toChance > 0.66
-        ? "Miri Base 2"
-        : toChance > 0.33
-        ? "Semporna Resort"
-        : "Layang Layang Resort",
-    company: coChance > 0.66 ? "Sazma" : coChance > 0.33 ? "Weststar" : "SAA",
+    // dateTime: randomDate(new Date(2020, 9, 10), new Date(2020, 9, 20)),
+    checkIn: sixDayCoverage,
+    etd: moment(sixDayCoverage).add({ hours: 1 }),
+    eta: moment(sixDayCoverage).add({ hours: 2, minutes: 30 }),
+    status:
+      fromChance > 0.66
+        ? "Scheduled"
+        : fromChance > 0.33
+        ? "On Time"
+        : "Delayed",
     email: "admin@fma.com",
   };
 };
