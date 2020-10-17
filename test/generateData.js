@@ -32,7 +32,8 @@ const generateFlight = () => {
       .toUpperCase(),
     acReg:
       acRegChance > 0.66 ? "9M-SBO" : acRegChance > 0.33 ? "9M-SBA" : "9M-SBM",
-    dateTime: randomDate(new Date(2020, 0, 1), new Date()),
+    // dateTime: randomDate(new Date(2020, 9, 10), new Date(2020, 9, 20)),
+    dateTime: randomDate(moment().subtract(3, "d")._d, moment().add(3, "d")._d), // Gets random date between +-3 days of today
     from:
       fromChance > 0.66
         ? "SAA KK Base"
