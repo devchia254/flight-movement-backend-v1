@@ -11,7 +11,7 @@ exports.todaysFlight = (req, res) => {
 
   Flight.findAll({
     where: {
-      date_time: {
+      check_in: {
         [Op.between]: [minusThreeDays, plusThreeDays],
       },
     },
