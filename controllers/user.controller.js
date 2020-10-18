@@ -29,7 +29,7 @@ exports.createFlight = (req, res) => {
     etd: req.body.etd,
     eta: req.body.eta,
     status: req.body.status,
-    user_email: req.body.email,
+    user_email: req.body.userEmail,
   })
     .then((flight) => {
       res.send({
