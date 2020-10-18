@@ -34,8 +34,8 @@ exports.createFlight = (req, res) => {
     .then((flight) => {
       res.send({
         message: `Flight was successfully created`,
-        flightId: `${flight.dataValues.flight_id}`,
-        user: `${req.body.email}`,
+        flight_id: `${flight.dataValues.flight_id}`,
+        user: `${req.body.user_email}`,
       });
     })
     .catch((err) => {
@@ -52,12 +52,14 @@ exports.editFlight = (req, res) => {
 
   Flight.update(
     {
-      date_time: req.body.dateTime,
       flight_no: req.body.flightNo,
-      from: req.body.from,
-      to: req.body.to,
-      ac_reg: req.body.acReg,
       company: req.body.company,
+      ac_reg: req.body.acReg,
+      destination: req.body.destination,
+      check_in: req.body.checkIn,
+      etd: req.body.etd,
+      eta: req.body.eta,
+      status: req.body.status,
       updated_by: req.body.updatedBy,
     },
     {
@@ -67,12 +69,12 @@ exports.editFlight = (req, res) => {
     .then((num) => {
       // Indicates 1 row was affected in MySQL db
       if (num == 1) {
-        res.send({
-          message: "Flight was updated successfully.",
+        res.status(200).send({
+          message: `Flight was successfully updated.`,
         });
       } else {
-        res.send({
-          message: `Cannot update Tutorial with id=${paramsId}. Maybe Flight was not found or req.body is empty!`,
+        res.status(410).send({
+          message: `Cannot update Flight with id=${paramsId} because it does not exist`,
         });
       }
     })
