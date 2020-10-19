@@ -47,8 +47,8 @@ exports.createFlight = (req, res) => {
 exports.editFlight = (req, res) => {
   const paramsId = req.params.id;
 
-  console.log("req.params: ", req.params);
-  console.log("req.body: ", req.body);
+  // console.log("req.params: ", req.params);
+  // console.log("req.body: ", req.body);
 
   Flight.update(
     {

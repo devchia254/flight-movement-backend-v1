@@ -17,11 +17,11 @@ exports.todaysFlight = (req, res) => {
     },
   })
     .then((flight) => {
-      console.log(
-        `Dates between ${moment(minusThreeDays).format(
-          "MM-DD-YYYY HH:mm"
-        )} and ${moment(plusThreeDays).format("MM-DD-YYYY HH:mm")}`
-      );
+      // console.log(
+      //   `Dates between ${moment(minusThreeDays).format(
+      //     "MM-DD-YYYY HH:mm"
+      //   )} and ${moment(plusThreeDays).format("MM-DD-YYYY HH:mm")}`
+      // );
 
       const mapFlights = flight.map((flight) => {
         return flight.dataValues;
