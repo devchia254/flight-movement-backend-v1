@@ -9,19 +9,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
     },
-    date_time: {
-      type: DataTypes.DATE, // The dateTime value from moment.js is a string
-      allowNull: false,
-    },
     flight_no: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    from: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    to: {
+    company: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -29,7 +21,23 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    company: {
+    destination: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    check_in: {
+      type: DataTypes.DATE, // The dateTime value from moment.js is a string
+      allowNull: false,
+    },
+    etd: {
+      type: DataTypes.DATE, // The dateTime value from moment.js is a string
+      allowNull: false,
+    },
+    eta: {
+      type: DataTypes.DATE, // The dateTime value from moment.js is a string
+      allowNull: false,
+    },
+    status: {
       type: DataTypes.STRING,
       allowNull: false,
     },

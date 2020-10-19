@@ -1,7 +1,6 @@
 const db = require("../models");
-const config = require("../config/auth.config");
-const User = db.user;
 const Flight = db.flight;
+
 const Op = db.Sequelize.Op; // Access SQL operators
 const moment = require("moment"); // require
 
@@ -12,17 +11,17 @@ exports.todaysFlight = (req, res) => {
 
   Flight.findAll({
     where: {
-      date_time: {
+      check_in: {
         [Op.between]: [minusThreeDays, plusThreeDays],
       },
     },
   })
     .then((flight) => {
-      console.log(
-        `Dates between ${moment(minusThreeDays).format(
-          "MM-DD-YYYY HH:mm"
-        )} and ${moment(plusThreeDays).format("MM-DD-YYYY HH:mm")}`
-      );
+      // console.log(
+      //   `Dates between ${moment(minusThreeDays).format(
+      //     "MM-DD-YYYY HH:mm"
+      //   )} and ${moment(plusThreeDays).format("MM-DD-YYYY HH:mm")}`
+      // );
 
       const mapFlights = flight.map((flight) => {
         return flight.dataValues;

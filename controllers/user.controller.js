@@ -1,9 +1,5 @@
 const db = require("../models");
-const config = require("../config/auth.config");
-const User = db.user;
 const Flight = db.flight;
-
-const Op = db.Sequelize.Op; // Access SQL operators
 
 exports.getFlights = (req, res) => {
   Flight.findAll()
@@ -26,18 +22,20 @@ exports.createFlight = (req, res) => {
   Flight.create({
     // flight_id: req.body.flightId,
     flight_no: req.body.flightNo,
-    ac_reg: req.body.acReg,
-    date_time: req.body.dateTime,
-    from: req.body.from,
-    to: req.body.to,
     company: req.body.company,
+    ac_reg: req.body.acReg,
+    destination: req.body.destination,
+    check_in: req.body.checkIn,
+    etd: req.body.etd,
+    eta: req.body.eta,
+    status: req.body.status,
     user_email: req.body.userEmail,
   })
     .then((flight) => {
       res.send({
         message: `Flight was successfully created`,
-        flightId: `${flight.dataValues.flight_id}`,
-        user: `${req.body.email}`,
+        flight_id: `${flight.dataValues.flight_id}`,
+        user: `${req.body.user_email}`,
       });
     })
     .catch((err) => {
@@ -49,17 +47,19 @@ exports.createFlight = (req, res) => {
 exports.editFlight = (req, res) => {
   const paramsId = req.params.id;
 
-  console.log("req.params: ", req.params);
-  console.log("req.body: ", req.body);
+  // console.log("req.params: ", req.params);
+  // console.log("req.body: ", req.body);
 
   Flight.update(
     {
-      date_time: req.body.dateTime,
       flight_no: req.body.flightNo,
-      from: req.body.from,
-      to: req.body.to,
-      ac_reg: req.body.acReg,
       company: req.body.company,
+      ac_reg: req.body.acReg,
+      destination: req.body.destination,
+      check_in: req.body.checkIn,
+      etd: req.body.etd,
+      eta: req.body.eta,
+      status: req.body.status,
       updated_by: req.body.updatedBy,
     },
     {
@@ -69,12 +69,12 @@ exports.editFlight = (req, res) => {
     .then((num) => {
       // Indicates 1 row was affected in MySQL db
       if (num == 1) {
-        res.send({
-          message: "Flight was updated successfully.",
+        res.status(200).send({
+          message: `Flight was successfully updated.`,
         });
       } else {
-        res.send({
-          message: `Cannot update Tutorial with id=${paramsId}. Maybe Flight was not found or req.body is empty!`,
+        res.status(410).send({
+          message: `Cannot update Flight with id=${paramsId} because it does not exist`,
         });
       }
     })
