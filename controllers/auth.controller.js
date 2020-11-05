@@ -8,7 +8,7 @@ var bcrypt = require("bcryptjs");
 exports.signup = (req, res) => {
   // Refers type of role to respective table id attribute
 
-  console.log("Signgup Route: ", req.body);
+  console.log("SignUp Route: ", req.body);
 
   const roleCheck = (role) => {
     switch (role) {
