@@ -86,27 +86,27 @@ exports.editUser = (req, res) => {
     });
 };
 
-exports.deleteFlight = (req, res) => {
+exports.deleteUser = (req, res) => {
   const paramsId = req.params.id;
 
-  Flight.destroy({
-    where: { flight_id: paramsId },
+  User.destroy({
+    where: { user_id: paramsId },
   })
     .then((num) => {
       // Indicates 1 row was affected in MySQL db
       if (num == 1) {
         res.send({
-          message: "Flight was deleted successfully.",
+          message: "User was deleted successfully.",
         });
       } else {
         res.send({
-          message: `Cannot delete Flight with id=${paramsId}. Maybe Flight was not found or req.body is empty!`,
+          message: `Cannot delete User with id=${paramsId}. Maybe User was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Flight with id=" + paramsId,
+        message: "Error deleting User with id=" + paramsId,
       });
     });
 };
