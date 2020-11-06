@@ -5,8 +5,8 @@ exports.getUsers = (req, res) => {
   User.findAll()
     .then((users) => {
       const userInfo = users.map((user) => {
-        const roleCheck = (role) => {
-          switch (role) {
+        const convertRoleId = (id) => {
+          switch (id) {
             case 1:
               return "user";
             case 2:
@@ -21,7 +21,7 @@ exports.getUsers = (req, res) => {
           user_email: user.user_email,
           first_name: user.first_name,
           last_name: user.last_name,
-          role: roleCheck(user.role_id),
+          role: convertRoleId(user.role_id),
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
         };
@@ -39,37 +39,43 @@ exports.getUsers = (req, res) => {
     });
 };
 
-exports.editFlight = (req, res) => {
+exports.editUser = (req, res) => {
   const paramsId = req.params.id;
 
   // console.log("req.params: ", req.params);
   // console.log("req.body: ", req.body);
 
-  Flight.update(
+  const assignRole = (role) => {
+    switch (role) {
+      case "admin":
+        return 2;
+      case "user":
+        return 1;
+      default:
+        return null;
+    }
+  };
+
+  User.update(
     {
-      flight_no: req.body.flightNo,
-      company: req.body.company,
-      ac_reg: req.body.acReg,
-      destination: req.body.destination,
-      check_in: req.body.checkIn,
-      etd: req.body.etd,
-      eta: req.body.eta,
-      status: req.body.status,
-      updated_by: req.body.updatedBy,
+      user_email: req.body.email,
+      first_name: req.body.firstName,
+      last_name: req.body.lastName,
+      role_id: assignRole(req.body.role),
     },
     {
-      where: { flight_id: paramsId },
+      where: { user_id: paramsId },
     }
   )
     .then((num) => {
       // Indicates 1 row was affected in MySQL db
       if (num == 1) {
         res.status(200).send({
-          message: `Flight was successfully updated.`,
+          message: `User was successfully updated.`,
         });
       } else {
         res.status(410).send({
-          message: `Cannot update Flight with id=${paramsId} because it does not exist`,
+          message: `Cannot update user with id=${paramsId} because it does not exist`,
         });
       }
     })

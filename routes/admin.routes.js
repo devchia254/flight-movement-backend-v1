@@ -17,12 +17,12 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.getUsers
   );
-  // // Update one user
-  // app.put(
-  //   "/api/admin/users/:id",
-  //   [authJwt.verifyToken, authJwt.isAdmin],
-  //   controller.editUser
-  // );
+  // Update one user
+  app.put(
+    "/api/admin/users/:id",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.editUser
+  );
   // // Delete one user
   // app.delete(
   //   "/api/admin/users/:id",
