@@ -15,7 +15,8 @@ module.exports = function (app) {
   // Sign up user - ADMIN privilege
   app.post(
     "/api/auth/signup",
-    [authJwt.verifyToken, authJwt.isAdmin, verifySignUp.checkDuplicateEmail],
+    // [authJwt.verifyToken, authJwt.isAdmin, verifySignUp.checkDuplicateEmail],
+    [verifySignUp.checkDuplicateEmail],
     controller.signup
   );
   // Sign in user
