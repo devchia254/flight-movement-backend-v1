@@ -8,9 +8,9 @@ var bcrypt = require("bcryptjs");
 exports.signup = (req, res) => {
   // Refers type of role to respective table id attribute
 
-  console.log("Signgup Route: ", req.body);
+  console.log("SignUp Route: ", req.body);
 
-  const roleCheck = (role) => {
+  const assignRole = (role) => {
     switch (role) {
       case "admin":
         return 2;
@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
     first_name: req.body.firstName,
     last_name: req.body.lastName,
     password: bcrypt.hashSync(req.body.password, 8),
-    role_id: roleCheck(req.body.role),
+    role_id: assignRole(req.body.role),
   })
     .then((user) => {
       const role = req.body.role;

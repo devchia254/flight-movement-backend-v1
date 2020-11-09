@@ -99,13 +99,13 @@ exports.deleteFlight = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot delete Flight with id=${paramsId}. Maybe Flight was not found or req.body is empty!`,
+          message: `Cannot delete Flight with id=${paramsId}. Maybe Flight was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Flight with id=" + paramsId,
+        message: "Error deleting Flight with id=" + paramsId,
       });
     });
 };
