@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3031", // This is to restrict which domains or wbesites can access this server
+  origin: "http://localhost:3031", // This is to restrict which domain(s) can access this server
 };
 
 app.use(cors(corsOptions));
@@ -54,5 +54,4 @@ require("./routes/public.routes")(app);
 const PORT = process.env.PORT || 3030;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
-  // console.log("Console logging the DB: ", db.Sequelize.Op);
 });

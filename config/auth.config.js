@@ -1,4 +1,6 @@
+require("dotenv").config();
+
 // Your personal secret string for JWT Token
 module.exports = {
-  secret: "devchia254-secret-key",
+  secret: process.env.JWT_SECRET,
 };

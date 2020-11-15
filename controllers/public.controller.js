@@ -1,9 +1,9 @@
 const db = require("../models");
-const Flight = db.flight;
-
 const Op = db.Sequelize.Op; // Access SQL operators
-const moment = require("moment"); // require
+const Flight = db.flight;
+const moment = require("moment");
 
+// Fetch flights for homepage
 exports.todaysFlight = (req, res) => {
   const minusThreeDays = moment().subtract(3, "d").format("YYYY-MM-DD", true);
 
@@ -17,22 +17,10 @@ exports.todaysFlight = (req, res) => {
     },
   })
     .then((flight) => {
-      // console.log(
-      //   `Dates between ${moment(minusThreeDays).format(
-      //     "MM-DD-YYYY HH:mm"
-      //   )} and ${moment(plusThreeDays).format("MM-DD-YYYY HH:mm")}`
-      // );
-
-      const mapFlights = flight.map((flight) => {
-        return flight.dataValues;
-      });
-      // console.log("All of today's flight: ", mapFlights);
-
       res.send({
-        message: `Flights that are +-3 Days from today was received.`,
-        flightData: mapFlights,
+        message: `Flights +-3 Days from today, was received.`,
+        flightData: flight,
       });
-      // console.log("List of flights:", JSON.stringify(flight, null, 2));
     })
     .catch((err) => {
       console.log(err);

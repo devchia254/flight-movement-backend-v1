@@ -11,6 +11,6 @@ module.exports = function (app) {
     next();
   });
 
-  // Get all flights
+  // Get all flights (+-3 days)
   app.get("/api/public", controller.todaysFlight);
 };
