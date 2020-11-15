@@ -1,4 +1,3 @@
-// import namor from "namor";
 const namor = require("namor");
 const moment = require("moment"); // require
 
@@ -45,7 +44,6 @@ const generateFlight = () => {
         : fromChance > 0.33
         ? "Terminal 2"
         : "Tg Aru Beach",
-    // dateTime: randomDate(new Date(2020, 9, 10), new Date(2020, 9, 20)),
     checkIn: sixDayCoverage,
     etd: moment(sixDayCoverage).add({ hours: 1 }),
     eta: moment(sixDayCoverage).add({ hours: 2, minutes: 30 }),
