@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3031", // This is to restrict which domain(s) can access this server
+  origin: "https://devchia254-fma-v1.herokuapp.com", // This is to restrict which domain(s) can access this server
 };
 
 app.use(cors(corsOptions));
