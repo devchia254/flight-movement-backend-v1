@@ -1,10 +1,9 @@
-require("dotenv").config();
-
+// Heroku config vars
 module.exports = {
   HOST: process.env.DB_HOST,
   USER: process.env.DB_USER,
   PASSWORD: process.env.DB_PASSWORD,
-  DB: "fma_v1",
+  DB: process.env.DB_NAME,
   dialect: "mysql",
   timezone: "+08:00", // Malaysian Time
   pool: {

@@ -1,6 +1,4 @@
-require("dotenv").config();
-
-// Your personal secret string for JWT Token
+// JWT Token - Heroku config vars
 module.exports = {
   secret: process.env.JWT_SECRET,
 };

@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3031", // This is to restrict which domain(s) can access this server
+  origin: "https://devchia254-fma-v1.herokuapp.com", // This is to restrict which domain(s) can access this server
 };
 
 app.use(cors(corsOptions));
@@ -20,26 +20,13 @@ const db = require("./models");
 
 // In development, you may need to drop existing tables and re-sync database. So you can use force: true as code below.
 // force: true actually rewrites the records after every server restart
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and Resync Db");
-
-  initial.admin(Role, User); // Sets initial roles and users
-
-  setTimeout(() => {
-    data.makeFlights(Flight);
-  }, 1500); // Executes after 1.5s
+db.sequelize.sync().then(() => {
+  console.log("Starting to sync production db");
 });
 // For production, just insert these rows manually and use sync() without parameters to avoid dropping data:
 // db.sequelize.sync();
 
-const Role = db.role;
-const User = db.user;
-const Flight = db.flight;
-
-const initial = require("./config/initial.config");
-const data = require("./test/makeFlights");
-
-// simple route
+// Simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the fma-backend-v1 application." });
 });
