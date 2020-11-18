@@ -5,6 +5,7 @@ exports.getUsers = (req, res) => {
   User.findAll()
     .then((users) => {
       const userInfo = users.map((user) => {
+        // Convert Role Id to Role name
         const convertRoleId = (id) => {
           switch (id) {
             case 1:
@@ -26,12 +27,10 @@ exports.getUsers = (req, res) => {
           updatedAt: user.updatedAt,
         };
       });
-      // console.log(userInfo);
       res.send({
         message: `All users retrieved!`,
         userData: userInfo,
       });
-      // console.log("List of flights:", JSON.stringify(flight, null, 2));
     })
     .catch((err) => {
       console.log(err);
@@ -42,9 +41,7 @@ exports.getUsers = (req, res) => {
 exports.editUser = (req, res) => {
   const paramsId = req.params.id;
 
-  // console.log("req.params: ", req.params);
-  // console.log("req.body: ", req.body);
-
+  // Convert Role name to respective Role Id
   const assignRole = (role) => {
     switch (role) {
       case "admin":
@@ -75,13 +72,13 @@ exports.editUser = (req, res) => {
         });
       } else {
         res.status(410).send({
-          message: `Cannot update user with id=${paramsId} because it does not exist`,
+          message: `Cannot update User with id=${paramsId} because it does not exist`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + paramsId,
+        message: "Error updating User with id=" + paramsId,
       });
     });
 };
@@ -110,15 +107,3 @@ exports.deleteUser = (req, res) => {
       });
     });
 };
-
-// exports.allAccess = (req, res) => {
-//   res.status(200).send("Public Content.");
-// };
-
-// exports.userBoard = (req, res) => {
-//   res.status(200).send("User or Admin Content.");
-// };
-
-// exports.adminBoard = (req, res) => {
-//   res.status(200).send("Admin Content.");
-// };

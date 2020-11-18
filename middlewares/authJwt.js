@@ -3,9 +3,9 @@ const config = require("../config/auth.config.js");
 const db = require("../models");
 const User = db.user;
 
-// Checks if JWT is provided, and whether legal or not
+// Authorisation - Checks if JWT is provided, and whether legal or not
 verifyToken = (req, res, next) => {
-  // Token stored in HTTP Header
+  // Access Token from frontend
   let token = req.headers["x-access-token"];
 
   if (!token) {
@@ -20,8 +20,7 @@ verifyToken = (req, res, next) => {
         message: "Unauthorized!",
       });
     }
-    // decoded contains iat, exp and an object(used to sign jwt)
-    // this created an attribute "email" and assigned "decoded.email" as its value, in the 'Request' object
+    // Validates the token
     req.email = decoded.email;
     next();
   });

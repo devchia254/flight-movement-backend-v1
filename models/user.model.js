@@ -27,14 +27,6 @@ module.exports = (sequelize, DataTypes, Role) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      // role_id: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false,
-      //   references: {
-      //     model: Role,
-      //     key: "role_id",
-      //   },
-      // },
     }
   );
   return User;

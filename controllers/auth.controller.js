@@ -1,15 +1,12 @@
 const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.user;
-
+// Security dependencies
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-// CONTROLLER FOR TESTING AUTHENTICATION
+
 exports.signup = (req, res) => {
-  // Refers type of role to respective table id attribute
-
-  console.log("SignUp Route: ", req.body);
-
+  // Assign Role name to respective Role Id
   const assignRole = (role) => {
     switch (role) {
       case "admin":
@@ -29,6 +26,7 @@ exports.signup = (req, res) => {
     role_id: assignRole(req.body.role),
   })
     .then((user) => {
+      // Only capitalising name of role for request message
       const role = req.body.role;
       const capitaliseRole = role.charAt(0).toUpperCase() + role.slice(1);
 
@@ -40,7 +38,7 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-  // MySQL: SELECT * FROM users WHERE username = 'req.body.username'
+  // MySQL: SELECT * FROM users WHERE email = 'req.body.email'
   User.findOne({
     where: {
       user_email: req.body.email,
@@ -50,8 +48,9 @@ exports.signin = (req, res) => {
       if (!user) {
         return res.status(404).send({ message: "User email was not found" });
       }
+
       // passwordIsValid returns either true or false
-      var passwordIsValid = bcrypt.compareSync(
+      const passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
@@ -63,16 +62,13 @@ exports.signin = (req, res) => {
         });
       }
 
-      var token = jwt.sign({ email: user.user_email }, config.secret, {
+      // Token is signed with user's email (necessary for decode token at authJwt) and secret key
+      const token = jwt.sign({ email: user.user_email }, config.secret, {
         expiresIn: 86400, // 24 hours
         // expiresIn: 900, // 15 mins
       });
 
-      // user.getRole().then((role) => {
-      //   console.log("getRole(): ", role.role_type);
-      //   res.send({ message: "Testing something" });
-      // });
-
+      // Once user is found, get the type of role (role_type) i.e. user or admin
       user.getRole().then((role) => {
         const authority = "ROLE_" + role.role_type.toUpperCase();
 

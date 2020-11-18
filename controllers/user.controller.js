@@ -17,10 +17,7 @@ exports.getFlights = (req, res) => {
 };
 
 exports.createFlight = (req, res) => {
-  // console.log("createFlight: ", req.body);
-
   Flight.create({
-    // flight_id: req.body.flightId,
     flight_no: req.body.flightNo,
     company: req.body.company,
     ac_reg: req.body.acReg,
@@ -34,21 +31,18 @@ exports.createFlight = (req, res) => {
     .then((flight) => {
       res.send({
         message: `Flight was successfully created`,
-        flight_id: `${flight.dataValues.flight_id}`,
+        flight_id: `${flight.flight_id}`,
         user: `${req.body.user_email}`,
       });
     })
     .catch((err) => {
-      // console.log(err);
       res.status(500).send({ message: err.message });
     });
 };
 
 exports.editFlight = (req, res) => {
+  // Retrieve ID from URL
   const paramsId = req.params.id;
-
-  // console.log("req.params: ", req.params);
-  // console.log("req.body: ", req.body);
 
   Flight.update(
     {
@@ -80,7 +74,7 @@ exports.editFlight = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + paramsId,
+        message: "Error updating Flight with id=" + paramsId,
       });
     });
 };
@@ -109,15 +103,3 @@ exports.deleteFlight = (req, res) => {
       });
     });
 };
-
-// exports.allAccess = (req, res) => {
-//   res.status(200).send("Public Content.");
-// };
-
-// exports.userBoard = (req, res) => {
-//   res.status(200).send("User or Admin Content.");
-// };
-
-// exports.adminBoard = (req, res) => {
-//   res.status(200).send("Admin Content.");
-// };
