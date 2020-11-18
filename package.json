@@ -1,5 +1,5 @@
 {
-  "name": "fma-backend-v1",
+  "name": "flight-movement-backend-v1",
   "version": "1.0.0",
   "description": "Back-end for Flight Movement App v1",
   "main": "server.js",
