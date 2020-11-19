@@ -4,8 +4,20 @@ const cors = require("cors");
 
 const app = express();
 
-var corsOptions = {
-  origin: "https://devchia254-fma-v1.herokuapp.com", // This is to restrict which domain(s) can access this server
+// This is to restrict which domain(s) can access this server
+const whitelist = [
+  "https://devchia254-fma-v1.herokuapp.com",
+  "http://devchia254-fma-v1.herokuapp.com",
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Origin not allowed by CORS"));
+    }
+  },
 };
 
 app.use(cors(corsOptions));
